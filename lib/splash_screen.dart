@@ -50,7 +50,7 @@ class _SplashState extends State<Splash> {
                 style: TextStyle(color: Colors.white, fontSize: 35),
               ),
               LottieBuilder.asset(
-                "assets/cards.json",
+                "assets/loading.json",
                 height: 150,
               ),
             ],

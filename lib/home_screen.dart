@@ -16,7 +16,7 @@ final Uri _url = Uri.parse('https://theapk.live');
          decoration:const  BoxDecoration(
           image: DecorationImage(
             fit:BoxFit.fitWidth,
-            image: AssetImage("assets/hori2.png",))
+            image: AssetImage("assets/horism.jpg",))
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -54,15 +54,16 @@ final Uri _url = Uri.parse('https://theapk.live');
                  //button
                  ElevatedButton(
                     style: ElevatedButton.styleFrom(   
+                      minimumSize: Size(200, 55),
                       foregroundColor: Colors.white,
-                backgroundColor: Colors.blue,
-                side: BorderSide(color: const Color.fromARGB(255, 20, 19, 19), width: 1),
-              ),
+                               backgroundColor: Colors.blue,
+                               side: BorderSide(color: const Color.fromARGB(255, 20, 19, 19), width: 1),
+                             ),
                   
                   onPressed: (){
                   
                   _launchUrl();
-        
+                       
                  }, 
                  child:const  Text("Upgrade Now!")),
         
@@ -82,9 +83,30 @@ final Uri _url = Uri.parse('https://theapk.live');
 
     );
   }
-  Future<void> _launchUrl() async {
-  if (!await launchUrl(_url)) {
+//   Future<void> _launchUrl() async {
+//   if (!await launchUrl(_url)) {
+//     throw Exception('Could not launch $_url');
+//   }
+// }
+
+
+Future<void> _launchUrl() async {
+  try {
+    if (!await canLaunch(_url.toString())) {
+      throw Exception('Could not launch $_url');
+    }
+
+    await launch(
+      _url.toString(),
+      forceSafariVC: false,  // Set to true if you want to open in-app browser on iOS
+      forceWebView: false,   // Set to true if you want to open in-app browser on Android
+    );
+  } catch (e) {
+    print('Error launching URL: $e');
     throw Exception('Could not launch $_url');
   }
 }
+
+
+
 }
